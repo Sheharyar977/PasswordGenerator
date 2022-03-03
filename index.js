@@ -1,33 +1,68 @@
 console.clear();
 
 let showResult = document.getElementById('showResult');
-let upperCased = document.getElementById('uppercase').checked;
-let lowerCased = document.getElementById('lowercase').checked;
-let numbers = document.getElementById('number').checked;
-let symbols = document.getElementById('symbol').checked;
-let sliderValue = document.getElementById('slider').value;
+let upperCased = document.getElementById('uppercase');
+console.log(upperCased);
+let lowerCased = document.getElementById('lowercase');
+console.log(lowerCased); 
+let numbers = document.getElementById('number');
+let symbols = document.getElementById('symbol');
+let sliderValue = document.getElementById('slider');
+let showSliderValue = document.getElementById('showSliderValue')
+let letters = "abcdefghijklmnopqrstuvwxyz";
+let uLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let numbstring = "1234567890";
+let symbolstring = "~`!@#$%^&*()_-+={[}]|':<>?/";
 
-
+ showSliderValue.innerHTML = sliderValue.value;
+//interactive slider 
+ sliderValue.oninput = function() { 
+     showSliderValue.innerHTML = this.value; 
+ }
 function myFunction() { 
     //randomNumbers();
-    randomLowercase(); 
+    //randomLowercase(); 
     //randomUppercase(); 
-   //randomSymbols(); 
+    //randomSymbols(); 
+    generatePassword(); 
 }
-let generatePassword = (sliderValue,includeUppercase, includeNumbers,includeSymbols) => {
-    let charCodes = LOWERCASE_CODES;
-    if (includeUppercase) charCodes = charCodes.concat(UPPERCASE_CODES);
-    if (includeSymbols) charCodes = charCodes.concat(SYMBOL_CODES);
-    if (includeNumbers) charCodes = charCodes.concat(NUMBER_CODES);
-    const passwordCharacters = [];
-    for (let i = 0; i < characterAmount; i++) {
-      const characterCode =
-        charCodes[Math.floor(Math.random() * charCodes.length)];
-      passwordCharacters.push(String.fromCharCode(characterCode));
+
+function generatePassword () {
+    let password = ""; 
+    if (upperCased.checked == true) { 
+        password += uLetters;
+        console.log(password);
     }
-    return passwordCharacters.join("");
-  };
+    if (lowerCased.checked == true) { 
+        password += (letters);
+        console.log(password);
+    }
+    if (numbers.checked == true) { 
+        password += (numbstring);
+        console.log(password);
+    }
+    if (symbols.checked == true) { 
+        password += (symbolstring);
+        console.log(password);
+    }
+
+    let RandomPass = "";
+    for (var i=0; i < sliderValue.value; i++) { 
+        let generate = password[Math.floor(Math.random()*password.length)]; 
+        console.log(generate);
+        RandomPass += generate;
+        console.log(RandomPass); 
+        if (RandomPass == "undefined") {
+            return alert("Aye man check some boxes")
+        }
+        
+    }
+    showResult.innerHTML=RandomPass;
+
+}
+
 /*
+
 //let showResult=document.getElementById('showResult').innerHTML;
 console.log(showResult);
 
@@ -90,22 +125,4 @@ function randomSymbols() {
     }
 }
 
-/*
-function generatePassword(length, lower, upper, number, symbol) {
-	let generatedPassword = "";
-	const typesCount = lower + upper + number + symbol;
-	const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(item => Object.values(item)[0]);
-	if (typesCount === 0) {
-		return "";
-	}
-	for (let i = 0; i < length; i++) {
-		typesArr.forEach(type => {
-			const funcName = Object.keys(type)[0];
-			generatedPassword += randomFunc[funcName]();
-		});
-	}
-	return generatedPassword.slice(0, length)
-		.split('').sort(() => Math.random() - 0.5)
-		.join('');
-}
-*/
+*/ 
