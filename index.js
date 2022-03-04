@@ -53,7 +53,7 @@ function generatePassword () {
         RandomPass += generate;
         console.log(RandomPass); 
         if (RandomPass == "undefined") {
-            return alert("You must check atleast one box! ")
+            return alert("Aye man check some boxes")
         }
         
     }
